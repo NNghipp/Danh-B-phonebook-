@@ -1,0 +1,157 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+struct myList{
+	string ten, sdt;
+};
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+void themDanhBa(myList *&danhBa, int &soLuong){
+	int soLuongThem;
+	cout << "Nhap so luong danh ba muon them: ";
+	cin >> soLuongThem;
+	myList *danhBaMoi = new myList[soLuong + soLuongThem];
+	for (int i = 0; i < soLuong; i++){
+		danhBaMoi[i] = danhBa[i];
+	}
+	cin.ignore();
+	for (int i = soLuong; i < soLuong + soLuongThem; i++){
+		int k = 0;
+		do {
+			cout << "Nhap ten danh ba thu " << i+1 << ": ";
+			getline(cin, danhBaMoi[i].ten);
+			k = 1;
+			for (int j = 0; j < i; j++){
+				if (danhBaMoi[i].ten == danhBaMoi[j].ten){
+					cout << "Ten da ton tai, vui long nhap lai!\n";
+					k = 0;
+					break;
+				}
+			}
+			if (danhBaMoi[i].ten.length() == 0){
+				cout << "Ten khong hop le, vui long thu lai!\n";
+				k = 0;
+			} 
+		} while (k == 0);
+		
+		do {
+			cout << "Nhap so dien thoai: ";
+			getline(cin, danhBaMoi[i].sdt);
+			k = 1;
+			for (int j = 0; j < i; j++){
+				if (danhBaMoi[i].sdt == danhBaMoi[j].sdt){
+					cout << "So dien thoai da ton tai, vui long nhap lai!\n";
+					k = 0;
+					break;
+				}
+			}
+			if (danhBaMoi[i].sdt.length() == 0){
+				cout << "Ten khong hop le, vui long thu lai!\n";
+				k = 0;
+			} 
+		} while (k == 0);
+	}
+	delete[] danhBa;
+	danhBa = danhBaMoi;
+	soLuong += soLuongThem;
+	cout << "Them danh ba thanh cong! Quay lai trang chu!\n\n";	
+}
+
+void hienThiDanhBa(myList *danhBa, int soLuong){
+	cout << "=====Danh ba=====\n";
+	if (soLuong == 0){
+		cout << "Danh ba trong!\n";
+	} else {
+		for (int i = 0; i < soLuong; i++){
+			cout << i+1 << ". " << danhBa[i].ten << " - " << danhBa[i].sdt << endl;
+		}
+	}
+	cout << "=================\n\n";
+}
+
+void xoaDanhBa(myList *&danhBa, int &soLuong ) {
+    int stt;
+
+    cout << "Nhap stt danh ba can xoa: ";
+    cin >> stt;
+
+    if(stt < 1 || stt > soLuong) {
+        cout << "\nDanh ba khong ton tai!\n" << endl;
+        return;
+}
+stt -= 1;
+for(int i = stt ; i < soLuong - 1 ; i++) {
+    danhBa[i] = danhBa[i + 1];
+}
+
+soLuong--;
+//myList* danhBaMoi = new myList[soLuong];
+//for(int i = 0; i< soLuong; i++) {
+//    danhBaMoi[i] = danhBa[i];
+//}
+//delete[] danhBa;
+//danhBa = danhBaMoi;
+
+cout << "Da xoa thanh cong! Quay lai trang chu!\n" << endl;
+
+}
+
+
+// n, a la stt lua chon
+// myList la kieu du lieu duoc tao ra boi Struct
+// danhBa la con tro kieu du lieu myList, danhBaMoi cung la con tro
+// soLuong la so luong danh ba
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int main(){
+	int n, a;
+	myList *danhBa = NULL;
+	int soLuong = 0;
+	while (true){
+		cout << "=====" << "Trang chu" << "=====" << endl;
+		cout << "1. Hien thi danh ba\n";
+		cout << "2. Them danh ba\n";
+		cout << "3. Sua danh ba\n";
+		cout << "4. Xoa danh ba\n";
+		cout << "5. Tim kiem danh ba\n";
+		cout << "0. Thoat\n";
+		cout << "====================\n";
+		cout << "\nDua ra lua chon cua ban: ";
+		cin >> n;
+		cout << "\n";
+		if (n == 0){
+			cout << "=========================\n";
+			cout << "Xac nhan thoat ung dung?\n";
+			cout << "0. Xac nhan\n";
+			cout << "1. Quay lai\n";
+			cout << "=========================\n";
+			cout << "\nDua ra lua chon cua ban: ";
+			cin >> a;
+			cout << "\n";
+			if (a == 0){
+				break;
+			} else if (a == 1){
+				continue;
+			} else {
+				cout << "Lua chon khong hop le, vui long thu lai!\n\n";
+			}
+		}else if(n == 1){ //Hien thi danh ba
+			hienThiDanhBa(danhBa, soLuong); 
+		}else if(n == 2){ //Them danh ba
+			themDanhBa(danhBa, soLuong);
+		}else if(n == 3){ //Sua danh ba
+			
+		}else if(n == 4){ // Xoa danh ba
+			xoaDanhBa(danhBa, soLuong);
+		}else if(n == 5){ // Tim kiem danh ba
+			
+		}else{
+			cout << "Lua chon khong hop le, vui long thu lai!\n\n";
+		}
+	}
+	cout << "Ban da thoat ung dung!\n";
+	return 0;
+}
