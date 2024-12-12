@@ -60,15 +60,15 @@ void themDanhBa(myList *&danhBa, int &soLuong){
 }
 
 void hienThiDanhBa(myList *danhBa, int soLuong){
-	cout << "=====Danh ba=====\n";
+	cout << "========Danh ba==========\n";
 	if (soLuong == 0){
 		cout << "Danh ba trong!\n";
 	} else {
 		for (int i = 0; i < soLuong; i++){
-			cout << i+1 << ". " << danhBa[i].ten << " - " << danhBa[i].sdt << endl;
+			cout << "|   " << i+1 << ". " << danhBa[i].ten << " - " << danhBa[i].sdt << endl;
 		}
 	}
-	cout << "\n";
+	cout << "-------------------------\n";
 }
 
 void suaDanhBa(myList *danhBa, int soLuong){
@@ -128,13 +128,13 @@ void xoaDanhBa(myList *&danhBa, int &soLuong ){
     string danhBaCanXoa;  
     cout << "1. Xoa theo ten hoac so dien thoai\n";
     cout << "2. Xoa theo so thu tu\n";
-    cout << "Dua ra lua chon cua ban: ";
+    cout << "Dua ra lua chon: ";
     cin >> k;
     int i;
     if (k == 1){
     	cout << "\nNhap ten hoac so dien thoai can xoa: ";
     	cin.ignore();
-    	cin >> danhBaCanXoa;
+    	getline(cin, danhBaCanXoa);
     	for (i = 0; i < soLuong; i++){
 			if(danhBa[i].ten == danhBaCanXoa || danhBa[i].sdt == danhBaCanXoa){
 				stt = i;
@@ -159,7 +159,7 @@ void xoaDanhBa(myList *&danhBa, int &soLuong ){
 	cout << "1. Huy\n";
 	cout << "2. Xac nhan\n";
 	do{ 
-		cout << "Dua ra lua chon cua ban: ";
+		cout << "Dua ra lua chon: ";
 		cin >> luaChon;
 		if (luaChon == 1){
 			cout << "\nQuay lai trang chu!\n";
@@ -223,20 +223,19 @@ int main(){
 	myList *danhBa= new myList[soLuong];
 	for (int i = 0; i < soLuong; i++){
 		getline(db, danhBa[i].ten);
-		db.ignore();
 		getline(db, danhBa[i].sdt);
 	}
 	db.close();
 	while (true){
-		cout << "=====" << "Trang chu" << "=====" << endl;
-		cout << "1. Hien thi danh ba\n";
-		cout << "2. Them danh ba\n";
-		cout << "3. Sua danh ba\n";
-		cout << "4. Xoa danh ba\n";
-		cout << "5. Tim kiem danh ba\n";
-		cout << "0. Thoat\n";
-		cout << "===================\n";
-		cout << "\nDua ra lua chon cua ban: ";
+		cout << "========" << "Trang chu" << "========" << endl;
+		cout << "|  1. Hien thi danh ba\t|\n";
+		cout << "|  2. Them danh ba\t|\n";
+		cout << "|  3. Sua danh ba\t|\n";
+		cout << "|  4. Xoa danh ba\t|\n";
+		cout << "|  5. Tim kiem danh ba\t|\n";
+		cout << "|  0. Thoat\t\t|\n";
+		cout << "=========================\n";
+		cout << "\nDua ra lua chon: ";
 		cin >> n;
 		cout << "\n";
 		if (n == 0){
@@ -245,7 +244,7 @@ int main(){
 			cout << "0. Xac nhan\n";
 			cout << "1. Quay lai\n";
 			cout << "=========================\n";
-			cout << "\nDua ra lua chon cua ban: ";
+			cout << "\nDua ra lua chon: ";
 			cin >> a;
 			cout << "\n";
 			if (a == 0){
@@ -267,7 +266,7 @@ int main(){
 			int timkiem;
             cout << "1. Tim kiem theo ten\n";
             cout << "2. Tim kiem theo so dien thoai\n";
-            cout << "Dua ra lua chon cua ban: ";
+            cout << "Dua ra lua chon: ";
             cin >> timkiem;
             if (timkiem == 1) {
             	timkiemtheoten(danhBa, soLuong);
@@ -290,6 +289,9 @@ int main(){
 	cout << "Ban da thoat ung dung!\n";
 	return 0;
 }
+
+
+
 
 
 
